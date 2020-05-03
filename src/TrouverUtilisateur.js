@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormControl from "react-bootstrap/FormControl";
@@ -8,9 +8,10 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 
 
-function TrouverUtilisateur({nom, setNom, setData, handleClick}){
-  
-  const handleChange = (event) => {
+function TrouverUtilisateur({setData, setShowResults}){
+    
+    const [nom, setNom] = useState("");
+    const handleChange = (event) => {
     setNom(event.target.value);   
   }
 
@@ -21,6 +22,7 @@ function TrouverUtilisateur({nom, setNom, setData, handleClick}){
       console.log(res.data);
         
       setData(res.data);
+      setShowResults(true);
     } catch (error) {
       console.log(error);
     }
@@ -29,9 +31,10 @@ function TrouverUtilisateur({nom, setNom, setData, handleClick}){
   const handleSubmit = (event) => {
     fetch();
     console.log("ici il y a du texte");
- 
+    
     event.preventDefault();
 }
+
 
   return (  
     <>  
@@ -46,7 +49,7 @@ function TrouverUtilisateur({nom, setNom, setData, handleClick}){
             onChange={handleChange}
           />
             </InputGroup>
-          <Button variant="primary" type="submit" onClick={handleClick} className="mt-3 mb-3">
+          <Button variant="primary" type="submit" className="mt-3 mb-3">
             Submit
           </Button>
          
